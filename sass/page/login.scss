@@ -1,0 +1,106 @@
+@import "../common/config";
+html{height:100%;}
+input{background:none;border:none}
+.t_btn1
+{
+	background-image:url('myImg/t_del.png');
+}
+.loginBg
+{
+	background-image:url('https://www.baochoudai.com/statics/mobile/html/userLR/login_content/css/myImg/bg1.jpg');
+}
+.b-bla-L2{
+	border-color:rgba(0, 0, 0, .2);
+}
+.us-L2 {
+	-webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, .3);
+	box-shadow: 0 1px 1px rgba(255, 255, 255, .3)
+}
+.b-gra3{
+	border-color:#d8d8d8;
+}
+.uinn-a4{
+	padding:0.9em 0.625em 0.8125em 0.625em;
+}
+.t-gra2{
+	color:#d8d8d8;
+}
+.userImg{
+	background-image:url('images/userImg.png');
+}
+.pwdImg{
+	background-image:url('images/pwdImg.png');
+}
+.emailImg{
+	background-image:url('images/emailImg.png');
+}
+.mar-ar2{
+	margin-right:0.375em;
+}
+.uinn-a5{
+	padding:0.8125em 0.625em 0.9em 0.625em;
+}
+.uinn-a6{
+	padding:1em 0.65em 0 0.65em;
+}
+.uinn-at2{
+	padding-top:0.75em;
+}
+.uinn-at1{
+    padding-top:1em;
+}
+
+
+
+            .login-box{background: rgba(0,0,0,0.2);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,0.1);border-radius:0.5em;}
+            .login-box ::-webkit-input-placeholder {  color:rgba(255,255,255,0.3); } 
+            .login-box .login-input{padding: 0.5em;border-bottom: 1px solid rgba(255,255,255,0.1);}
+            .login-box .login-input:last-child{border: none;}
+            .login-box input{color: #fff;}
+            .loginBg {     -webkit-filter: grayscale(35%);}
+
+
+
+
+
+
+.left-icon{
+	width:toRem(45);
+	height:toRem(28);
+	line-height:toRem(28);
+	margin:toRem(10) 0;
+	overflow:hidden;
+	text-align:center;
+}
+
+#code_img{
+	display: block;width:6.5rem;height:100%;cursor:pointer;
+}
+
+.wx-bottom{
+	margin:toRem(20) 0 0;
+	.wx-tit{
+		display:inline-block;
+		.line{position: absolute;top:50%;height:1px;background:$desaltColor;width:200%;left:-50%;}
+		.text-in{
+			background:#f0f0f0;
+			color:$desaltColor;
+		}
+	}
+	.wx-btn{
+		font-size:toRem(38);
+	    width:toRem(65);
+	    height:toRem(65);
+	    border: 1px solid #c1e044;
+	    border-radius: 100%;
+	    color: #c1e044;
+	    line-height:toRem(65);
+	    margin:toRem(15) auto;
+	}
+}
+.bottom-txt{
+	position:absolute;bottom: 1em;left: 0;right: 0;text-align: center;
+}
+.w80{
+	width:toRem(80);
+}

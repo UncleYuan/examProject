@@ -1,0 +1,191 @@
+@charset "UTF-8";
+@import "config";
+@import "reset";
+$winW-list: 360,400,440,480,520,560,600,640;
+@each $item in $winW-list {
+  @media only screen and (min-width:#{$item}px) {
+    html {font-size:#{$item/20}px !important;}
+  }
+}
+.pointer {
+    cursor: pointer;
+}
+
+.none {
+    display: none;
+}
+
+.overflow {
+    overflow: hidden;
+}
+.overflow-y-auto {
+    overflow-y:auto;
+}
+.fb {
+    font-weight: bold;
+}
+
+.fn {
+    font-weight: normal;
+}
+
+.no-unl {
+    text-decoration: none;
+}
+
+.word-break {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.tl {
+    text-align: left !important;
+    text-align-last: left;
+}
+
+.tc {
+    text-align: center;
+    text-align-last: center;
+}
+
+.tr {
+    text-align: right;
+    text-align-last: right;
+}
+
+.tj {
+    text-align: justify;
+    text-align-last: justify;
+    text-justify: inter-ideograph;
+}
+
+.bc {
+    margin-left: auto;
+    margin-right: auto;
+}
+.vm{
+     vertical-align:middle;
+}
+
+.vt{
+     vertical-align:top;
+}
+.vb{
+     vertical-align:bottom;
+}
+
+.block{display:block !important;}
+.inline-block{
+  display: inline-block;
+}
+
+
+
+
+$m-list: 0,2,5,10,15,20,25,30;
+@each $item in $m-list {
+  .m#{$item} {
+    margin:toRem($item);
+  }
+  .mt#{$item} {
+      margin-top:toRem($item);
+  }
+  .ml#{$item} {
+      margin-left:toRem($item);
+  }
+  .mr#{$item} {
+      margin-right:toRem($item);
+  }
+  .mb#{$item} {
+      margin-bottom:toRem($item);
+  }
+
+}
+
+
+$p-list:0,2,5,10,15,20,25,30;
+@each $item in $p-list {
+  .p#{$item} {
+    padding:toRem($item);
+  }
+  .pt#{$item} {
+      padding-top:toRem($item);
+  }
+  .pl#{$item} {
+      padding-left:toRem($item);
+  }
+  .pr#{$item} {
+      padding-right:toRem($item);
+  }
+  .pb#{$item} {
+      padding-bottom:toRem($item);
+  }
+
+}
+$br-list:0,2,5,10,15,20,25,30;
+@each $item in $br-list {
+  .br#{$item} {
+    border-radius:toRem($item) !important;
+  }
+}
+.br_100{
+  border-radius:100%;
+}
+$fz-list:10,11,12,13,14,15,16,18,20,22,24,26,28,30,32,34,36,40,46,54,65;
+@each $item in $fz-list {
+  .fs#{$item} {
+    font-size:toRem($item) !important;
+  }
+ 
+}
+
+
+$w-list:50,65,80,120,160;
+@each $item in $w-list {
+  .w#{$item} {
+    width:toRem($item);
+  }
+ 
+}
+.w100f{
+  width: 100%;
+}
+$h-list:10,40,43,215;
+@each $item in $h-list {
+  .h#{$item} {
+    height:toRem($item);
+  }
+ 
+}
+$lh-list:1,2;
+@each $item in $lh-list{
+  .lh#{$item} {
+    line-height:#{$item};
+  }
+}
+
+$border-list:1,
+2,
+3,
+4;
+@each $item in $border-list {
+    .uba#{$item} {
+        border:#{$item}px solid;
+    }
+    .ubt#{$item} {
+        border-top:#{$item}px solid;
+    }
+    .ubb#{$item} {
+        border-bottom:#{$item}px solid;
+    }
+    .ubl#{$item} {
+        border-left:#{$item}px solid;
+    }
+    .ubr#{$item} {
+        border-right:#{$item}px solid;
+    }
+}

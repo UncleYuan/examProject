@@ -1,0 +1,24 @@
+$baseFontSize:16px;
+$baseColor:#33cc99;
+$assistColor:#f09013;
+$assistColor2:#ff8a10;
+$desaltColor:#999;
+$whiteColor:#fff;
+$contraryColor:#f26e4e;
+$contWidth:1080px;
+$fontFamily:"Microsoft YaHei";
+$fontLineHeight:1.5;
+$baseFontColor:#444;
+$colorOrange:#ff8a10;
+$colorGray:#f0f0f0;
+$colorGray1:#fafafa;
+$fuzzyColor:#e6e6e6;
+$relativeColor:#66ccff;
+
+@function imagesUrl($filename) {	
+  @return "../../images/"+$filename;
+}
+@function toRem($num) {	
+  @return $num/16+rem;
+}
+
