@@ -1,0 +1,17 @@
+@import "../common/config";
+.practice-detail,.pro-detail{
+	li{
+		font-size: toRem(12);
+		background-color: $baseColor;
+		color: #fff;
+		text-align: center;
+		vertical-align: middle;
+		height: toRem(20);
+		width: toRem(20);
+		border-radius: 50%;
+		margin: toRem(6);
+	}
+	.active{
+		background-color: #ff3c3c;
+	}
+}
