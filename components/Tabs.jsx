@@ -1,5 +1,4 @@
 var React = require('react');
-
 var Tabs = React.createClass({
 	getDefaultProps:function(){
 	    return {
