@@ -1,0 +1,10 @@
+@import "../common/config";
+html,body{
+	height:100%;
+}
+.user-top{
+	.left-head{
+		width: toRem(60);
+		height: toRem(60);
+	}
+}

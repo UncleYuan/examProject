@@ -1,0 +1,198 @@
+@charset "UTF-8";
+@import "config";
+@import "common";
+@import "base_style";
+.tit-arrow {
+    background: $fuzzyColor;
+    color: $desaltColor;
+    padding: toRem(10) toRem(15);
+    height: toRem(20);
+    line-height: toRem(20);
+    display: inline-block;
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: toRem(-14);
+        width: 0;
+        height: 0;
+        border-top: toRem(20) solid transparent;
+        border-left: toRem(15) solid $fuzzyColor;
+        border-bottom: toRem(20) solid transparent;
+    }
+    &.base-bg {
+        background: $baseColor;
+        color: #fff;
+        &:after {
+            border-left-color: $baseColor;
+        }
+    }
+    &.relative-bg {
+        background: $relativeColor;
+        color: #fff;
+        &:after {
+            border-left-color: $relativeColor;
+        }
+    }
+}
+
+.bg-tab-box {
+    .bg-tab-btn {
+        border-right: 1px solid $fuzzyColor;
+        position: relative;
+        padding: toRem(8) 0;
+        border-bottom: 1px solid $fuzzyColor;
+        &:last-child {
+            border-right: none;
+        }
+        &.active {
+            background: $baseColor;
+            color: #fff;
+            border-bottom: none;
+            &:after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                margin: 0 0 0 toRem(-8);
+                border-left: toRem(8) solid transparent;
+                border-right: toRem(8) solid transparent;
+                border-bottom: toRem(8) solid $whiteColor;
+            }
+        }
+    }
+}
+
+.exam-item-box {
+    @extend .uba1;
+    @extend .base-border;
+    @extend .br5;
+    @extend .tc;
+    @extend .overflow;
+    @extend .inline-block;
+    margin: toRem(5) 0;
+    line-height: 0;
+    .top-img {
+        width: toRem(140);
+        height: toRem(110);
+    }
+    .bottom-txt {
+        @extend .base-bg;
+        @extend .white-color;
+        padding: toRem(8) toRem(5);
+        font-size: toRem(11);
+    }
+    &:active {
+        opacity: 0.8;
+    }
+}
+
+.problem-box {
+    .problem-tit {
+        padding: toRem(5) 0;
+        margin: 0 0 toRem(10);
+    }
+    .problem-ul {
+        .problem-li {
+            margin: 0 0 toRem(15);
+            &.checked {
+                .option-idx {
+                    color: #fff;
+                    background: $baseColor;
+                }
+            }
+            .option-idx {
+                font-style: normal;
+                font-size: toRem(18);
+                color: $baseColor;
+                border: 1px solid $baseColor;
+                width: toRem(24);
+                height: toRem(24);
+                line-height: toRem(26);
+                text-align: center;
+                margin: 0 toRem(8) 0 0;
+                transition: background 0.4s, color 0.4s;
+                &.single {
+                    border-radius: 100%;
+                }
+            }
+            .option-txt {
+                color: $desaltColor;
+                font-size: toRem(14);
+                padding: toRem(3) 0 0;
+                &:active {
+                    opacity: 0.9;
+                    transform: scale(0.98);
+                }
+            }
+        }
+    }
+}
+
+.fixed-btn-group {
+    border-top: 1px solid $fuzzyColor;
+    background: #fff;
+    .bottom-btn {
+        border-right: 1px solid $fuzzyColor;
+        padding: toRem(8) 0;
+        &.active-base {
+            &.active {
+                transition: background 0.4s;
+                color: #fff;
+                background: $baseColor;
+            }
+        }
+        &:last-child {
+            border: none;
+        }
+        &:active {
+            background: $fuzzyColor;
+        }
+    }
+}
+
+.alert-modal {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 999;
+    .alert-dialog {
+        background: #fff;
+        border-radius: toRem(5);
+        margin: toRem(50) auto;
+        max-width: toRem(280);
+        text-align: center;
+        .cont-up {
+        	padding: toRem(10);
+            .head {
+                height: toRem(32);
+                line-height: toRem(32);
+                font-size: toRem(16);
+                margin: 0 0 toRem(10);
+            }
+            .cont {
+            	font-size:toRem(14);
+                margin: 0 0 toRem(10);
+            }
+        }
+        .btn-group {
+            @extend .ub;
+            .btn {
+                @extend .ub-f1;
+                width: 1px;
+                border-radius: 0;
+                &:first-child {
+                    border-radius: 0 0 0 toRem(5);
+                }
+                &:last-child {
+                    border-radius: 0 0 toRem(5) 0;
+                }
+            }
+        }
+    }
+}

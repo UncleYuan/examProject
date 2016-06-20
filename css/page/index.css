@@ -1,0 +1,24 @@
+.new-item {
+  background: #fff url("../../images/new-tip.png") no-repeat left top;
+  background-size: 40%; }
+  .new-item:active {
+    background-color: #FAFAFA; }
+  .new-item .left-p {
+    width: 3.8rem;
+    height: 100%; }
+  .new-item .right {
+    width: 1px; }
+
+.item:active {
+  background-color: #FAFAFA; }
+.item .left-num {
+  background: #FF7271;
+  width: 4.8rem;
+  border-radius: 0 5rem 5rem 0; }
+
+.goTender .btn-danger {
+  border-bottom: 2px solid #29a37a;
+  padding: 0.25rem 0.8rem;
+  border-radius: 0.8rem; }
+
+/*# sourceMappingURL=index.css.map */

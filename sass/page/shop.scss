@@ -1,0 +1,15 @@
+@import "../common/config";
+.selBtn{
+    border:1px solid lighten($desaltColor,25%);
+    color:lighten($desaltColor,10%);
+    &.active,&:active{
+        background: $baseColor;
+        color:#fff;
+        border-color:$baseColor;
+    }
+}
+.footer-fiexd-box{position: fixed;bottom:0;left:0;right:0;box-shadow:0 0 toRem(10) rgba(0,0,0,0.2);}
+
+.buy-btn:active{
+    background: darken($baseColor,10%);
+}
