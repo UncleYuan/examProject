@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AACA,OAAO;EACH,MAAM,EAAC,iBAAmC;EAC1C,KAAK,EAAC,OAAyB;EAC/B,8BAAiB;IACb,UAAU,ECJP,OAAO;IDKV,KAAK,EAAC,IAAI;IACV,YAAY,ECNT,OAAO;;ADSlB,iBAAiB;EAAC,QAAQ,EAAE,KAAK;EAAC,MAAM,EAAC,CAAC;EAAC,IAAI,EAAC,CAAC;EAAC,KAAK,EAAC,CAAC;EAAC,UAAU,EAAC,+BAA6B;;AAElG,eAAe;EACX,UAAU,EAAE,OAAsB",
-"sources": ["../../sass/page/shop.scss","../../sass/common/config.scss"],
-"names": [],
-"file": "shop.css"
-}
