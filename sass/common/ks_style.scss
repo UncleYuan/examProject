@@ -93,6 +93,14 @@
         padding: toRem(5) 0;
         margin: 0 0 toRem(10);
     }
+    .problem-input{
+        line-height: 2;
+        width:95%;
+        height:toRem(44);
+        padding:0 2.5%;
+        border:none;
+        border-bottom:1px solid $fuzzyColor;
+    }
     .problem-ul {
         .problem-li {
             margin: 0 0 toRem(15);

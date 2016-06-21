@@ -1,3 +1,26 @@
+/** 
+* @fileOverview react checkbox组件封装 
+* @author <a href="">pan</a> 
+* @version 0.1 
+*/ 
+/** 
+* @author pan 
+
+* @description react checkbox组件封装  
+* @since version 0.1 
+* @param  Props {String} value         checkbox组件的值,从外部传入可直接表单回填 
+* @param  Props {String} title         标题 
+* @param  Props {String} name          checkbox组件的name 
+* @param  Props {String} type          checkbox组件的类型目前支持  radio,checkbox
+* @param  Props {Array} optionsArr     渲染的选项数据[{title:'',value:''}]
+* @param  Props {Function} onSelEnd    从外部传入事件，当value改变时调用，可向外部传参
+* @param  Props {Array} chooseArr      选中的选项的数组
+* @param  Props {Number} selLen        设置多选时最多可选择的个数
+*/ 
+
+
+
+
 var React = require('react');
 indexOf = function(arr,val) {
   for (var i = 0; i < arr.length; i++) {
@@ -13,35 +36,36 @@ removeArr = function(arr,val) {
   return arr;
 };
 var CheckRadio = React.createClass({
-	getDefaultProps:function(){
-	    return {
-	    	value:"",
+  getDefaultProps:function(){
+      return {
+        value:"",
         title:"",
-        leftHtml:false,
         optionsArr:[],
         chooseArr:[],
         selLen:1000,
         name:"",
-        inline:false,
         type:"checkbox",
-	    };
-	},
+      };
+  },
   getInitialState: function() {
       return {
-          inputEd:false,
-          textareaHeight:false,
           chooseArr:this.props.chooseArr
         };
     },
   componentWillMount:function(){
-
-    if(this.props.value){
-       this.setState({chooseArr:(this.props.value+"").split(','),value:this.props.value});
+    
+    if(this.props.value||this.props.value===""){
+      var chooseArr=(this.props.value+"").split(',');
+      chooseArr=chooseArr[0]?chooseArr:[];
+      this.setState({chooseArr:chooseArr,value:this.props.value});
     }
+
   },
   componentWillReceiveProps:function(nextProps){
     if(nextProps.value!=this.props.value){
-      this.setState({chooseArr:(nextProps.value+"").split(','),value:nextProps.value});
+      var chooseArr=(nextProps.value+"").split(',');
+      chooseArr=chooseArr[0]?chooseArr:[];
+      this.setState({chooseArr:chooseArr,value:nextProps.value});
     }
   },
   chooseReset:function(value){
@@ -57,93 +81,64 @@ var CheckRadio = React.createClass({
   },
   chooseCheckBox:function(i){
     
-    var chooseVal=this.props.optionsArr[i].val;
+    var chooseVal=this.props.optionsArr[i].value;
     var stateArr=this.state.chooseArr;
     var idx=indexOf(stateArr,chooseVal);
     if(idx<0){
       if(this.props.selLen<=stateArr.length) stateArr.shift();
       stateArr.push(chooseVal)
-
-      this.setState({chooseArr:stateArr,value:stateArr.join(',')});
     }else{
       stateArr=removeArr(this.state.chooseArr,chooseVal);
-      this.setState({chooseArr:stateArr,value:stateArr.join(',')});
     }
 
-    if(this.props.callBack&&this.props.selStr)this.props.callBack(stateArr.join(','),this.props.selStr);
+    this.setState({chooseArr:stateArr,value:stateArr.join(',')});
+    if(this.props.onSelEnd)this.props.onSelEnd(stateArr.join(','),stateArr);
   },
   chooseRadio:function(i){
-    var chooseVal=this.props.optionsArr[i].val;
+    var chooseVal=this.props.optionsArr[i].value;
     var stateArr=this.state.chooseArr;
     var idx=indexOf(stateArr,chooseVal);
     var setVal="";
     if(idx<0){
       setVal=chooseVal;
-      this.setState({chooseArr:[chooseVal],value:chooseVal});
+      setArr=[chooseVal];
     }else{
-      this.setState({chooseArr:[],value:""});
+      setVal="";
+      setArr=[];
     }
 
-    if(this.props.callBack&&this.props.selStr)this.props.callBack(setVal,this.props.selStr);
+    this.setState({chooseArr:setArr,value:setVal});
+    if(this.props.onSelEnd)this.props.onSelEnd(setVal,setArr);
   },
-  typeHtml:{
-    checkbox:function(o){  
-      return  o.props.optionsArr.map(function (obj,i) {
+  
+  getHtml:function(type){
+    return this.props.optionsArr.map(function (obj,i) {
           var turnClass="iconfont";
+          var addClass=type=="checkbox"?"multi":"single";
+          var fnName=type=="checkbox"?"chooseCheckBox":"chooseRadio";
+          var selClass=indexOf(this.state.chooseArr,obj.value)>=0?"checked":"";
           return (
-
-            <div key={i} onClick={o.chooseCheckBox.bind(o,i)}   className="radio-box">
-                
-              <i className=" iconfont" className={indexOf(o.state.chooseArr,obj.val)>=0?turnClass+" icon-duoxuan base-color":turnClass+" icon-danxuan fuzzy-color"}></i>
-                    <div  className="radio-text">
-                       {obj.tit}
-                    </div>
-            </div>
-     
-          )
-        });
-    },
-    radio:function(o){
-
-      return o.props.optionsArr.map(function (obj,i) {
-          var turnClass="iconfont";
-
-          return (
-            <div key={i} onClick={o.chooseRadio.bind(o,i)}   className="radio-box">
-              <i className=" iconfont" className={indexOf(o.state.chooseArr,obj.val)>=0?turnClass+" icon-xuanze  base-color":turnClass+" icon-danxuan fuzzy-color"}></i>
-              <div  className="radio-text">
-                {obj.tit}
-              </div>
-            </div>
+            <li key={i} onClick={this[fnName].bind(this,i)} className={"problem-li ub ub-at "+selClass}>
+                <i className={"option-idx "+addClass}>{obj.value}</i><p className="option-txt ub-f1">{obj.name}</p>
+            </li>
             )
-        });
-    }
+    },this);
   },
   render: function() {
-      if(this.props.leftHtml){
-        var leftHtml=<span className=" pr10">{this.props.leftHtml}</span>;
-      }
-      var value = this.state.chooseArr.join(',');
-      var cn=value?"form-item focus":"form-item";
-      var labelclassName="item-title "+this.props.labelClass;
-      var inlineClass=this.props.inline?" inline-radio":"";
 
-	    return (
-        <div className={cn} >
-          {leftHtml}
-            <div className="item-input-box">
-              <div className="item-tit ">{this.props.title}</div>
-              <div className={"CheckRadio-box"+inlineClass}>
-                <input type="hidden" name={this.props.name}  value={value} />
-                <div className="checkRadio">
-                   {this.typeHtml[this.props.type](this)}
-                </div>
-              </div>
-             <div className="input-bottom-line"></div>
-          </div>
+      var value = this.state.chooseArr.join(',');
+
+      return (
+        <div className="problem-box" >
+            <h6 className="problem-tit">{this.props.title}</h6>
+              <input type="hidden" name={this.props.name}  value={value} />
+              <ul className="problem-ul">
+                
+                   {this.getHtml(this.props.type)}
+              </ul>
       </div>
-	    );
-	}
+      );
+  }
 });
 module.exports = CheckRadio;
 

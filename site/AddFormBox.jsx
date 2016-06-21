@@ -201,5 +201,5 @@ React.render((
       <Route path="/Step2/:id" component={Step2}/>
       <Route path="/Step3" component={Step3}/>  
     </Route>
-  </Router>
+ </Router>
 ), document.getElementById('AddFormBox'))

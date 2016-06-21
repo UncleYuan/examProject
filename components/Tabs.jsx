@@ -3,7 +3,8 @@ var Tabs = React.createClass({
 	getDefaultProps:function(){
 	    return {
         active:0,
-
+        btnBoxClass:"top-tab-box",
+        btnClass:"top-tab-btn"
 	    };
 	},
   getInitialState: function() {
@@ -38,12 +39,12 @@ var Tabs = React.createClass({
       
       return (
         <div className='tabWrap ub ub-ver ub-fv'>
-          <div className="white-bg mt10 mb10 tabHead">
-            <div className="ub top-tab-box tc fs14">
+          <div className="white-bg  tabHead">
+            <div className={"ub tc fs14 "+this.props.btnBoxClass}>
               {this.props.children.map(function(obj,index){
                 var activeClass=this.state.active==index?" active":""
                 return(
-                  <div onClick={this.selTab.bind(this,index)} className={"ub-f1 top-tab-btn"+activeClass}>{obj.props.title}</div>
+                  <div onClick={this.selTab.bind(this,index)} className={"ub-f1 "+this.props.btnClass+" "+activeClass}>{obj.props.title}</div>
                 )
               },this)}
             </div>

@@ -3,11 +3,11 @@ fis.set('project.files', ['react/**','site/**','modules/**','components/**','pag
 
 /*设置发布路径*/
 /*指定模块化插件*/
-/*fis.match('*', {
+fis.match('*', {
   deploy: fis.plugin('local-deliver', {
-    to: 'E:/working/kaoshi/'
+    to: 'E:/working/yixue/statics/exam/'
   })
-})*/
+})
 
 fis.hook('commonjs', {
     paths: {
@@ -40,3 +40,12 @@ fis.match('*.jsx', {
     rExt: '.js',
     parser: fis.plugin('react', {})
 });
+
+/*fis.match('/server/**', {
+  release: '$0'
+});
+fis.match('/server/server.conf', {
+  release: '/config/server.conf'
+});
+
+*/

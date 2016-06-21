@@ -1208,6 +1208,13 @@ a {
 .problem-box .problem-tit {
   padding: 0.3125rem 0;
   margin: 0 0 0.625rem; }
+.problem-box .problem-input {
+  line-height: 2;
+  width: 95%;
+  height: 2.75rem;
+  padding: 0 2.5%;
+  border: none;
+  border-bottom: 1px solid #e6e6e6; }
 .problem-box .problem-ul .problem-li {
   margin: 0 0 0.9375rem; }
   .problem-box .problem-ul .problem-li.checked .option-idx {
