@@ -1,0 +1,13 @@
+.practice-detail li, .pro-detail li {
+  font-size: 0.75rem;
+  background-color: #33cc99;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 50%;
+  margin: 0.375rem; }
+
+.practice-detail .active, .pro-detail .active {
+  background-color: #ff3c3c; }

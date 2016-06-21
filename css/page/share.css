@@ -14,6 +14,7 @@ body {
   .top-form-box.bg1 .go-next {
     display: block;
     margin: 0 auto; }
+
 .top-form-box.bg2 {
   padding: 2.8125rem 0 0;
   height: 23.875rem;
@@ -78,6 +79,7 @@ body {
   height: 6.25rem;
   background: url("../../images/share/tit.png") no-repeat center center;
   background-size: auto 100%; }
+
 .bottom-box .row-box {
   padding: 0 1.125rem 0 0.9375rem; }
   .bottom-box .row-box .left-icon {
@@ -136,5 +138,3 @@ body {
   .btn-yellow:active {
     background: #ccbf00;
     color: #f79421; }
-
-/*# sourceMappingURL=share.css.map */
