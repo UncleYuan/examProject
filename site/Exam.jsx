@@ -200,7 +200,7 @@ var AllWrapBox = React.createClass({
       var data=this.state.rendData;
       var newJson={};
       for(var i in data){
-        newJson[i]=data[i].value?data[i].value||"";
+        newJson[i]=data[i].value?data[i].value:"";
       }
       this.allAsw=JSON.stringify(newJson);
     },
@@ -225,7 +225,7 @@ var AllWrapBox = React.createClass({
         var goSaveBtn=rendData[idx].t_type!="checkbox"||rendData[idx].checkbox_count!=0?<div onClick={this.goSetVal} className="base-btn btn block fs13 m30">保存此题答案</div>:"";
         var completedNum=this.completedNum();
         var allNum=JSONLength(rendData);
-        setAsw();
+        this.setAsw();
         return (
             <div className="ub ub-ver uinn-a3 ub-fv  ">
                 <div className="base-bg  pt05 headbar ub ub-ac  ub-pc pb05">

@@ -25,7 +25,6 @@ var TypeUser = React.createClass({
         for(var i in arr){
             var typeClass=arr[i].state==0?"contrary":"base";
             html.push(
-                <div>
                 <div className="ubb1 fuzzy-border ub ub-ae p10">
                     <div className="ub-f1">
                         <div className="fs13">
@@ -38,47 +37,7 @@ var TypeUser = React.createClass({
                     <div className="desalt-color fs11">
                         <i className="iconfont icon-youfan"></i>
                     </div>
-                </div>
-                <div className="ubb1 fuzzy-border ub ub-ae p10">
-                    <div className="ub-f1">
-                        <div className="fs13">
-                            {arr[i].title}<span className="base-color">(护士执业资格考试)</span>
-                        </div>
-                        <div className="desalt-color mt2 fs11">
-                            未完成
-                        </div>
-                    </div>
-                    <div className="desalt-color fs11">
-                        46分钟前
-                    </div>
-                </div>
-                <div className="ubb1 fuzzy-border ub ub-ae p10">
-                    <div className="ub-f1">
-                        <div className="fs13">
-                            {arr[i].title}<span className="base-color">(护士执业资格考试)</span>
-                        </div>
-                        <div className="desalt-color mt2 fs11">
-                            未完成
-                        </div>
-                    </div>
-                    <div className="desalt-color fs11">
-                        46分钟前
-                    </div>
-                </div>
-                <div className="ubb1 fuzzy-border ub ub-ae p10">
-                    <div className="ub-f1">
-                        <div className="fs13">
-                            {arr[i].title}<span className="base-color">(护士执业资格考试)</span>
-                        </div>
-                        <div className="desalt-color mt2 fs11">
-                            未完成
-                        </div>
-                    </div>
-                    <div className="desalt-color fs11">
-                        46分钟前
-                    </div>
-                </div>
-                </div>
+                </div> 
             );
          }
          return html;
@@ -107,53 +66,10 @@ var TypeUser = React.createClass({
                 <Tabs btnBoxClass="bg-tab-box" btnClass="bg-tab-btn" >
                     <div title="我的考试" className="pageIn">
                         <ScrollList url="/index.php?g=Yixue&m=Api&a=getExamRoExercise" dataTel={this.getTelFn} postData={{type:1}} />
-                      
-                    
                     </div>
                     <div title="我的练习"  className="pageIn">
-                        
-                        <div className="ubb1 fuzzy-border ub ub-ae p10">
-                            <div className="ub-f1">
-                                <div className="fs13">
-                                    考试<span className="base-color">(护士执业资格考试)</span>
-                                </div>
-                                <div className="desalt-color mt2 fs11">
-                                    未完成
-                                </div>
-                            </div>
-                            <div className="desalt-color fs11">
-                                46分钟前
-                            </div>
-                        </div>
-                        <div className="ubb1 fuzzy-border ub ub-ae p10">
-                            <div className="ub-f1">
-                                <div className="fs13">
-                                    考试<span className="base-color">(护士执业资格考试)</span>
-                                </div>
-                                <div className="desalt-color mt2 fs11">
-                                    未完成
-                                </div>
-                            </div>
-                            <div className="desalt-color fs11">
-                                46分钟前
-                            </div>
-                        </div>
-                        <div className="ubb1 fuzzy-border ub ub-ae p10">
-                            <div className="ub-f1">
-                                <div className="fs13">
-                                    考试<span className="base-color">(护士执业资格考试)</span>
-                                </div>
-                                <div className="desalt-color mt2 fs11">
-                                    未完成
-                                </div>
-                            </div>
-                            <div className="desalt-color fs11">
-                                46分钟前
-                            </div>
-                        </div>
-                    
+                        <ScrollList url="/index.php?g=Yixue&m=Api&a=getExamRoExercise" dataTel={this.getTelFn} postData={{type:""}} />
                     </div>
-                    
                 </Tabs>
                 
                    
