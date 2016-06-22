@@ -50,7 +50,7 @@ var TabBox = React.createClass({
                     </Link>
                   </div>
                 </div>
-                <div className="mt10" >
+                <div className="mt10 ub-f1 h10" >
                 {React.cloneElement(this.props.children || <div/>, { key: pathname })}
                 </div>
                  

@@ -10,4 +10,15 @@ html, body {
   .page.active {
     display: block; }
 
+.typeUserBox .tabCont {
+  overflow-y: hidden; }
+  .typeUserBox .tabCont .page {
+    height: 100%; }
+    .typeUserBox .tabCont .page .pageIn {
+      height: 100%; }
+
+.scrollBox {
+  overflow-y: auto;
+  height: 100%; }
+
 /*# sourceMappingURL=type.css.map */

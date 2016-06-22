@@ -53,7 +53,7 @@ var LoginForm = React.createClass({
 	                <div className="">
 	                    <div className="ub ub-ac login-input white-bg mb10">
 	                        <div className=" uinput ub ub-ac ub-fh">
-	                            <div className="left-icon ubr fuzzy-border"><i className="iconfont fs24  base-color icon-zhanghao"></i></div>
+	                            <div className="left-icon ubr fuzzy-border"><i className="iconfont fs24  base-color icon-shouji"></i></div>
 	                            <input  placeholder="请输入您的手机号"  value={this.state.uname} onChange={this.inputChange.bind(this,"uname")} onBlur={this.onBlurUname} name='phone' type="text" className="ub-f1 fs16 p5 umw4" style={{"outlineStyle":"none"}} />
 	                        </div>
 	                        <i  style={{"display": "none"}} className="icon-qingchu mr05 fs24 iconfont pos-right-clean base-color"></i>

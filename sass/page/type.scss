@@ -14,3 +14,19 @@ html,body{
 		display: block;
 	}
 }
+.typeUserBox{
+	.tabCont {
+		overflow-y: hidden;
+		.page{
+			height: 100%;
+			.pageIn{
+				height: 100%;
+
+			}
+		}
+	}
+}
+.scrollBox{
+	overflow-y:auto;
+	height:100%;
+}
