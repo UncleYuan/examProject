@@ -2,6 +2,7 @@
 @import "config";
 @import "common";
 @import "base_style";
+@import "../page/all_analysis";
 .tit-arrow {
     background: $fuzzyColor;
     color: $desaltColor;
@@ -186,6 +187,8 @@
             .cont {
             	font-size:toRem(14);
                 margin: 0 0 toRem(10);
+                max-height:toRem(200);
+                overflow-y: auto;
             }
         }
         .btn-group {
@@ -195,10 +198,10 @@
                 width: 1px;
                 border-radius: 0;
                 &:first-child {
-                    border-radius: 0 0 0 toRem(5);
+                    border-bottom-left-radius:toRem(5);
                 }
                 &:last-child {
-                    border-radius: 0 0 toRem(5) 0;
+                    border-bottom-right-radius:toRem(5);
                 }
             }
         }

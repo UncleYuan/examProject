@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,MAAM;EACL,KAAK,EAAE,OAAO",
+"sources": ["../../sass/page/analysis.scss"],
+"names": [],
+"file": "analysis.css"
+}

@@ -6,7 +6,9 @@ var Modal = require('/components/Modal');
 var Loading = require('components/Loading');
 var InputEle = require('components/InputEle');
 var CheckRadio = require('components/CheckRadio');
+var AlertModal = require('components/AlertModal');
 var ReactRouter = require('lib/ReactRouter');
+
 var Router=ReactRouter.Router;
 var Route=ReactRouter.Route;
 var Link=ReactRouter.Link;
@@ -73,7 +75,8 @@ var AllWrapBox = React.createClass({
            residue_time:false,
            ing:false,
            idx:false,
-           noIdxVal:false
+           noIdxVal:false,
+           showExamModal:false
         };
     },
     componentWillMount:function(){
@@ -121,13 +124,18 @@ var AllWrapBox = React.createClass({
           _this.goPrevNext(1);   
         },500)
     },
+    totalAllEaxm:function(){
+
+    },
     goPrevNext:function(num){
       var indexNum=getJSONIdx(this.state.rendData,this.props.params.idx);
       this.goIdx(indexNum+num);
     },
     goIdx:function(idx){
       var data=this.state.rendData;
+
       var nextId=getJSONbyIdx(data,idx);
+   
       if(nextId){
         location.hash="/problem/"+nextId;
       }
@@ -135,8 +143,33 @@ var AllWrapBox = React.createClass({
     onSetIdx:function(idx){
       this.setState({idx:idx})
     },
-    goSubAll:function(){
+    ModalBtnConf:[
+      {},
+      {type:"warning",txt:"确定",onCli:function(closeFn){
+        closeFn();
+      }}
+    ],
+    openExamModal:function(){
+      this.setState({showExamModal:true})
+    },
+    modalOnclose:function(){
+      this.setState({showExamModal:false})
+    },
+    getProDetailHtml:function(){
+      var html=[];
+      var rendData=this.state.rendData;
+      var x=0;
+      for(var i in rendData){
+        x++;
+        var idxClass=rendData[i].value?"completed":"";
+        html.push(<li onClick={this.modalGoIdx.bind(this,x-1)} className={idxClass}>{x}</li>);
+      }
+      return html;
+    },
+    modalGoIdx:function(i){
 
+      this.goIdx(i);
+      this.modalOnclose();
     },
     render: function () {
         var pathname = this.props.location.pathname;
@@ -160,11 +193,24 @@ var AllWrapBox = React.createClass({
                     <div className="head-icon left">
                         <div className="iconfont icon-zuofan white-color fs20" onclick="location.href='/'"></div>
                     </div>
-                    <div className="tc white-color">试题一览({getJSONIdx(rendData,this.props.params.idx)+1}/{JSONLength(rendData)})</div>
+                    <div onClick={this.openExamModal} className="tc white-color">试题一览({getJSONIdx(rendData,this.props.params.idx)+1}/{JSONLength(rendData)})</div>
                     <div className="head-icon right" >
                         {timer}
                     </div>
                 </div>
+                <AlertModal title="答题状况" name="ExamModal" show={this.state.showExamModal} onClose={this.modalOnclose} btnOptions={this.ModalBtnConf} >
+                    <div className="tl">
+                      共计<span className="contrary-color">15</span>题，
+                      已经完成<span className="contrary-color">56</span>题,
+                      还剩<span className="contrary-color">4</span>题未做答
+                      <span className="desalt-light-color">(点击下方按钮可跳转对应的题目)</span>
+                    </div>
+                    <ul className="tj pro-detail mt10 mb10">
+                    {this.getProDetailHtml()}
+                      
+                  
+                    </ul>
+                </AlertModal>
                 <div style={{"display":"none"}} className="alert-modal">
                   <div className="alert-dialog">
                     <div className="cont-up">
@@ -193,8 +239,8 @@ var AllWrapBox = React.createClass({
                     <div className="ub-f1 bottom-btn active-base">
                         暂停
                     </div>
-                    <div className="ub-f1 bottom-btn base-color" onClick={this.goSubAll}>
-                        提交
+                    <div className="ub-f1 bottom-btn base-color" onClick={this.openExamModal}>
+                        交卷
                     </div>
                 </div>
             </div>

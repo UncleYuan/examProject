@@ -1,11 +1,12 @@
 var React = require('react');
-var Modal = React.createClass({
+var AlertModal = React.createClass({
 	getDefaultProps:function(){
 	    return {
         show:false,
-        title:"新窗口",
+        title:"系统提示",
+        name:"AlertModal"+(new Date()).valueOf(),
         type:"checkbox",
-        ifBindSP:true,
+        ifBindSP:false,
         showClass:'fadeInUp'
 	    };
 	},
@@ -40,32 +41,55 @@ var Modal = React.createClass({
       this.props.onClose();
     }
   },
+  btnClassJson:{
+    warning:"assist",
+    danger:"contrary",
+    info:"base",
+    def:"default"
+  },
+  emptyFn:function(){
+
+  },
+  getBtnHtml:function(){
+    var allBtnHtml=[];
+
+    var btnOptions=this.props.btnOptions;
+
+    if(btnOptions){
+        for(var i in btnOptions){
+          var btnType=btnOptions[i].type?this.btnClassJson[btnOptions[i].type]:'default';
+          var clickFn=btnOptions[i].onCli?btnOptions[i].onCli.bind(this,this.closeModal):this.closeModal;
+          allBtnHtml.push(<span  onClick={clickFn} className={btnType+"-btn btn"} >{btnOptions[i].txt||"关闭"}</span>)
+        }
+    }else{
+
+      allBtnHtml.push(<span onClick={this.closeModal} className=" btn">确定</span>)
+    }
+    
+    return allBtnHtml;
+  },
   render: function() {
       var style={display:this.state.show?"block":"none"};
       var bgClass=this.state.show?"in":"";
       var modelClass=this.state.show?this.props.showClass:"hide";
 
-      var h=document.body.offsetHeight< document.body.scrollHeight?document.body.scrollHeight:document.body.offsetHeight
-      var height={height:h };
       return (
-        <div className="modal" style={style}>
-            <div className={"modal-backdrop "+bgClass} style={height}></div>
-            <div className={"modal-dialog animated "+modelClass} >
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="fs18">{this.props.title}</h4>
-                        <div className="bootbox-close-button close"  onClick={this.closeModal}>×</div>
+        <div style={style} className={"alert-modal "+bgClass}>
+                  <div className={"alert-dialog "+modelClass}>
+                    <div className="cont-up">
+                      <div className="head">{this.props.title}</div>
+                      <div className="cont">{this.props.children}</div>
                     </div>
-                    <div className="modal-body">
-                      {this.props.children}
+                    <div className="btn-group">
+                      {this.getBtnHtml()}
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
+        
           )
 	}
 });
 
-module.exports = Modal;
+module.exports = AlertModal;
 
 
