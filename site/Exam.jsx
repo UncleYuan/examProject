@@ -89,6 +89,7 @@ var AllWrapBox = React.createClass({
            loading:true,
            rendData:[],
            residue_time:false,
+           now_time:(new Date).valueOf(),
            ing:false,
            idx:false,
            showExamModal:false
@@ -100,9 +101,7 @@ var AllWrapBox = React.createClass({
     },
     timer:null,
     overTimeFn:function(){ //倒计时
-      var residue_time=this.state.residue_time;
-      residue_time--;
-      this.setState({residue_time:residue_time})
+      this.setState({now_time:(new Date).valueOf()})
     },
     getExamData:function(){ //获取所有试题数据
         var _this=this;
@@ -133,6 +132,7 @@ var AllWrapBox = React.createClass({
     },
     goSetVal:function(){  // 保存当前题目答案，在多选和填空时
       var data=this.state.rendData;
+
       data[this.state.idx].value=this.state.nowIdxVal;
       this.setState({rendData:data});
       var _this=this;
@@ -158,20 +158,35 @@ var AllWrapBox = React.createClass({
       var data=this.state.rendData;
 
       var nextId=getJSONbyIdx(data,idx);
-   
       if(nextId){
         location.hash="/problem/"+nextId;
       }
     },
     onSetIdx:function(idx){   //从子组件设置父组件 idx
-      this.setState({idx:idx})
+
+      this.setState({idx:idx,nowIdxVal:''})
     },
     ModalBtnConf:function(){
       var _this=this;
       return [  //设置弹窗的底部按钮
-        {},
-        {type:"warning",txt:"确定",onCli:function(closeFn){
-          console.log(_this.getAllAswStr())
+        {txt:"继续答题",onCli:function(closeFn){
+          console.log(_this.state.ing)
+            if(!_this.state.ing){
+              $.post('/index.php?g=Yixue&m=Api&a=open',{t_id:getQueryString('id')},function(data){
+
+                _this.setState({showExamModal:false,ing:true})
+                _this.timer=setInterval(function(){
+                  _this.overTimeFn();
+                },1000);
+              },'json')
+              
+            }else{
+              _this.setState({showExamModal:false})
+            }
+        }
+        },
+        {type:"warning",txt:"提交试卷",onCli:function(closeFn){
+  
           $.post('/index.php?g=Yixue&m=Api&a=submitAnswer',{t_id:getQueryString('id') , answer: _this.getAllAswStr()},function(data){
             alert(data.info);
             if(data.code=="SUCCESS"){
@@ -203,7 +218,7 @@ var AllWrapBox = React.createClass({
       for(var i in rendData){
         x++;
         var idxClass=rendData[i].value?"completed":"";
-        html.push(<li onClick={this.modalGoIdx.bind(this,x-1)} className={idxClass}>{x}</li>);
+        html.push(<li key={i} onClick={this.modalGoIdx.bind(this,x-1)} className={idxClass}>{x}</li>);
       }
       return html;
     },
@@ -221,12 +236,20 @@ var AllWrapBox = React.createClass({
       this.allAsw=JSON.stringify(newJson);
     },
     pause:function(){
-
+      var _this=this;
+      $.post('/index.php?g=Yixue&m=Api&a=suspend',{t_id:getQueryString('id'),answer:this.getAllAswStr(),suspend_topic_id:this.state.idx,residue_time:this.state.residue_time},function(data){
+        alert("暂停成功");
+        if(data.code=="SUCCESS"){
+          _this.setState({showExamModal:true,ing:false})
+          clearInterval(_this.timer);
+        }  
+      },'json')
     },
     goIndex:function(){
       location.href="/"
     },
     render: function () {
+
         var pathname = this.props.location.pathname;
         if(this.state.loading){
             return(<Loading />)
@@ -235,9 +258,12 @@ var AllWrapBox = React.createClass({
         var rendData=this.state.rendData;
 
         var idx=this.props.params.idx;
+
         if(this.state.residue_time){
+
+          var timeLong=this.state.residue_time+"000"-this.state.now_time;
           timer.push(<div key="0" className=" white-color fs11" >
-            {parseInt(this.state.residue_time/60)}分{parseInt(this.state.residue_time%60)}秒
+            {parseInt(timeLong/60000)}分{parseInt(timeLong%60000/1000)}秒
           </div>)
         }
         var prevBtnShow=getJSONIdx(rendData,idx)<=0?"none":"block";
@@ -260,28 +286,19 @@ var AllWrapBox = React.createClass({
                   </div>  
                 </div>
                 <AlertModal title="答题状况" name="ExamModal" show={this.state.showExamModal} onClose={this.modalOnclose} btnOptions={this.ModalBtnConf()} >
-                    <div className="tl">
+                    <div  className="tl">
+                      <div className="contrary-color">{this.state.ing?"":"您当前已经暂停"}</div>
                       共计<span className="contrary-color">{allNum}</span>题，
                       已经完成<span className="contrary-color">{completedNum}</span>题,
                       还剩<span className="contrary-color">{allNum-completedNum}</span>题未做答
                       <span className="desalt-light-color">(点击下方按钮可跳转对应的题目)</span>
+                      
                     </div>
                     <ul className="tj pro-detail mt10 mb10">
                       {this.getProDetailHtml()}
                     </ul>
                 </AlertModal>
-                <div style={{"display":"none"}} className="alert-modal">
-                  <div className="alert-dialog">
-                    <div className="cont-up">
-                      <div className="head">标题</div>
-                      <div className="cont">内容</div>
-                    </div>
-                    <div className="btn-group">
-                      <span className="btn">取消</span>
-                      <span className="btn assist-btn">确定</span>
-                    </div>
-                  </div>
-                </div>
+           
                 <div className="ub-f1 h40 overflow-y-auto">
                     <div className="page  p15 ">
                       {React.cloneElement(this.props.children || " ", { key: pathname,rendData:this.state.rendData,onSetVal:this.onSetVal,onSetIdx:this.onSetIdx })}
@@ -295,7 +312,7 @@ var AllWrapBox = React.createClass({
                         </div>
                 <div className="fixed-btn-group ub tc">
                   
-                    <div className="ub-f1 bottom-btn active-base">
+                    <div className="ub-f1 bottom-btn active-base" onClick={this.pause}>
                         暂停
                     </div>
                     <div className="ub-f1 bottom-btn base-color" onClick={this.openExamModal}>
@@ -336,16 +353,16 @@ var  ProblemBox= React.createClass({
        var html=[];
        if(data[idx].t_type=="checkbox"){
           html.push(
-            <CheckRadio title={data[idx].topic} value={data[idx].value||""} type={parseInt(data[idx].checkbox_count)==0?"radio":"checkbox"} optionsArr={data[idx].options} onSelEnd={this.onSelEnd} />      
+            <CheckRadio key={idx} title={data[idx].topic} value={data[idx].value||""} type={parseInt(data[idx].checkbox_count)==0?"radio":"checkbox"} optionsArr={data[idx].options} onSelEnd={this.onSelEnd} />      
           );
 
        }else if(data[idx].t_type=="text"){
           html.push(
-            <InputEle  title={data[idx].topic} value={data[idx].value||""} type="textarea" onValChange={this.onSelEnd}/>
+            <InputEle  key={idx} title={data[idx].topic} value={data[idx].value||""} type="textarea" onValChange={this.onSelEnd}/>
           )
        }
         return (
-          <div>{html}</div>
+          <div key={idx}>{html}</div>
         )
     }
 })

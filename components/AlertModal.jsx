@@ -59,7 +59,7 @@ var AlertModal = React.createClass({
         for(var i in btnOptions){
           var btnType=btnOptions[i].type?this.btnClassJson[btnOptions[i].type]:'default';
           var clickFn=btnOptions[i].onCli?btnOptions[i].onCli.bind(this,this.closeModal):this.closeModal;
-          allBtnHtml.push(<span  onClick={clickFn} className={btnType+"-btn btn"} >{btnOptions[i].txt||"关闭"}</span>)
+          allBtnHtml.push(<span key={i} onClick={clickFn} className={btnType+"-btn btn"} >{btnOptions[i].txt||"关闭"}</span>)
         }
     }else{
 

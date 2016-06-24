@@ -25,7 +25,7 @@ var FormalList = React.createClass({
             var typeClass=arr[i].state==0?"contrary":"base";
             html.push(
               <div className="exam-item-box" onClick={this.goUrl.bind(this,arr[i].t_id)}>
-                <div className="top-img fs20"><p className="pt20">{arr[i].title}</p></div>
+                <div className="top-img fs20"><p className="p20">{arr[i].title}</p></div>
                 <div className="bottom-txt">开始考试</div>
               </div>
                  
@@ -50,7 +50,7 @@ var FormalList = React.createClass({
             </div>
             <div  className="ub-f1 h40 ">
             <div className="p10">
-            <ScrollList url="/index.php?g=Yixue&m=Api&a=getAnswerSheet" dataTel={this.getTelFn} postData={{column_id:getQueryString("column_id")}} />
+            <ScrollList url="/index.php?g=Yixue&m=Api&a=getAnswerSheet" dataTel={this.getTelFn} postData={{column_id:getQueryString("id")}} />
             </div></div>
           </div>
                 
