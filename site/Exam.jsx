@@ -1,6 +1,3 @@
-
-
-
 var React = require('react');
 var PubSub=require('/lib/PubSubJS');
 window.PubSub=PubSub;
@@ -113,10 +110,11 @@ var AllWrapBox = React.createClass({
             if(_this.props.location.pathname=="/"){
                 location.hash="/problem/"+getJSONbyIdx(data.data.content,0);//首次进入自动跳转到第一题
             }
-            _this.setState({rendData:data.data.content,loading:false,residue_time:data.data.residue_time,ing:true});
             _this.timer=setInterval(function(){
                 _this.overTimeFn();
             },1000);
+            _this.setState({rendData:data.data.content,loading:false,residue_time:data.data.residue_time,ing:true});
+            
         },'json')
     },
     onSetVal:function(val,arr){ //当子组件设置value值时执行的回调
@@ -168,17 +166,35 @@ var AllWrapBox = React.createClass({
     onSetIdx:function(idx){   //从子组件设置父组件 idx
       this.setState({idx:idx})
     },
-    ModalBtnConf:[  //设置弹窗的底部按钮
-      {},
-      {type:"warning",txt:"确定",onCli:function(closeFn){
-        closeFn();
-      }}
-    ], 
+    ModalBtnConf:function(){
+      var _this=this;
+      return [  //设置弹窗的底部按钮
+        {},
+        {type:"warning",txt:"确定",onCli:function(closeFn){
+          console.log(_this.getAllAswStr())
+          $.post('/index.php?g=Yixue&m=Api&a=submitAnswer',{t_id:getQueryString('id') , answer: _this.getAllAswStr()},function(data){
+            alert(data.info);
+            if(data.code=="SUCCESS"){
+              closeFn();
+            }  
+          },'json')
+          
+        }}
+      ]
+    }, 
     openExamModal:function(){ //打开弹窗
       this.setState({showExamModal:true})
     },
     modalOnclose:function(){ //关闭弹窗
       this.setState({showExamModal:false})
+    },
+    getAllAswStr:function(){
+      var rendData=this.state.rendData;
+      var newJson={};
+      for(var i in rendData){
+        newJson[i]=typeof(rendData[i].value)=="undefined"?"":rendData[i].value;
+      }
+      return JSON.stringify(newJson);
     },
     getProDetailHtml:function(){ //获取 所有题的 下标的 html
       var html=[];
@@ -207,6 +223,9 @@ var AllWrapBox = React.createClass({
     pause:function(){
 
     },
+    goIndex:function(){
+      location.href="/"
+    },
     render: function () {
         var pathname = this.props.location.pathname;
         if(this.state.loading){
@@ -214,6 +233,7 @@ var AllWrapBox = React.createClass({
         }
         var timer=[];
         var rendData=this.state.rendData;
+
         var idx=this.props.params.idx;
         if(this.state.residue_time){
           timer.push(<div key="0" className=" white-color fs11" >
@@ -229,15 +249,17 @@ var AllWrapBox = React.createClass({
         return (
             <div className="ub ub-ver uinn-a3 ub-fv  ">
                 <div className="base-bg  pt05 headbar ub ub-ac  ub-pc pb05">
-                    <div className="head-icon left">
-                        <div className="iconfont icon-zuofan white-color fs20" onclick="location.href='/'"></div>
-                    </div>
-                    <div onClick={this.openExamModal} className="tc white-color">试题一览({getJSONIdx(rendData,this.props.params.idx)+1}/{allNum})</div>
-                    <div className="head-icon right" >
-                        {timer}
-                    </div>
+                  <div className="head-icon left">
+                    <div className="iconfont icon-zuofan white-color fs20" onClick={this.goIndex}></div>
+                  </div>
+                  <div onClick={this.openExamModal} className="tc white-color">
+                    试题一览({getJSONIdx(rendData,this.props.params.idx)+1}/{allNum})
+                  </div>
+                  <div className="head-icon right" >
+                    {timer}
+                  </div>  
                 </div>
-                <AlertModal title="答题状况" name="ExamModal" show={this.state.showExamModal} onClose={this.modalOnclose} btnOptions={this.ModalBtnConf} >
+                <AlertModal title="答题状况" name="ExamModal" show={this.state.showExamModal} onClose={this.modalOnclose} btnOptions={this.ModalBtnConf()} >
                     <div className="tl">
                       共计<span className="contrary-color">{allNum}</span>题，
                       已经完成<span className="contrary-color">{completedNum}</span>题,
@@ -245,9 +267,7 @@ var AllWrapBox = React.createClass({
                       <span className="desalt-light-color">(点击下方按钮可跳转对应的题目)</span>
                     </div>
                     <ul className="tj pro-detail mt10 mb10">
-                    {this.getProDetailHtml()}
-                      
-                  
+                      {this.getProDetailHtml()}
                     </ul>
                 </AlertModal>
                 <div style={{"display":"none"}} className="alert-modal">

@@ -37,7 +37,7 @@ var TypeExam = React.createClass({
                             <div className="tit-arrow relative-bg">
                                 模拟考试
                             </div>
-                            <a href="/" className="desalt-color ">
+                            <a href="/index.php?a=testList" className="desalt-color ">
                                 更多
                             </a>
                         </div>
@@ -59,7 +59,7 @@ var TypeExam = React.createClass({
                             <div className="tit-arrow base-bg">
                                 正式考试
                             </div>
-                            <a href="/" className="desalt-color ">
+                            <a href="/index.php?a=formalList" className="desalt-color ">
                                 更多
                             </a>
                         </div>

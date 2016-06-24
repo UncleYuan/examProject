@@ -16,8 +16,8 @@ var TypeExam = React.createClass({
             _this.setState({rendData:res.data?res.data:[],loading:false})
         },'json')  
     },
-    goUrl:function(){
-
+    goUrl:function(id){
+        location.href="/index.php?a=questionsList&id="+id
     },
     render: function () {
         if(this.state.loading){
