@@ -47,8 +47,8 @@ var LoginForm = React.createClass({
 			this.setState({isPhone:true});
 		}
 	},
-	goToGetPsw:function(){
-		location.href='/index.php?g=Member&m=Public&a=getpwd';
+	goToLogin:function(){
+		location.href='/index.php?a=login';
 	},
     render: function () {
     	var showStyle=this.state.isPhone?{"display":"none"}:{"display":"block"}

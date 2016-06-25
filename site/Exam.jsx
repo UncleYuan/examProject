@@ -92,7 +92,9 @@ var AllWrapBox = React.createClass({
            now_time:(new Date).valueOf(),
            ing:false,
            idx:false,
-           showExamModal:false
+           old:false,
+           showExamModal:false,
+           overTimeSub:false
         };
     },
     componentWillMount:function(){
@@ -101,18 +103,40 @@ var AllWrapBox = React.createClass({
     },
     timer:null,
     overTimeFn:function(){ //倒计时
-      this.setState({now_time:(new Date).valueOf()})
+
+      if((new Date).valueOf()>=parseInt(this.state.residue_time+"000")){
+        clearInterval(this.timer);
+        this.setState({showExamModal:true,overTimeSub:true})
+        this.goSubAsw();
+      }else{
+        this.setState({now_time:(new Date).valueOf()})
+      }
+     
     },
     getExamData:function(){ //获取所有试题数据
         var _this=this;
         $.post('/index.php?g=Yixue&m=Api&a=getTopic',{t_id:getQueryString('id')},function(data){
-            if(_this.props.location.pathname=="/"){
+            var old=false;
+            var showExamModal=_this.state.showExamModal;
+            var ing=_this.state.ing;
+            if(data.data.Answer){
+              for(var a in data.data.Answer){
+                data.data.content[a].value=data.data.Answer[a];
+              }
+              location.hash="/problem/"+data.data.suspend_topic_id;
+              old=true;
+              showExamModal=true;
+              ing=true;
+            }else if(_this.props.location.pathname=="/"){
                 location.hash="/problem/"+getJSONbyIdx(data.data.content,0);//首次进入自动跳转到第一题
             }
-            _this.timer=setInterval(function(){
-                _this.overTimeFn();
-            },1000);
-            _this.setState({rendData:data.data.content,loading:false,residue_time:data.data.residue_time,ing:true});
+            if(!ing){
+              _this.timer=setInterval(function(){
+                  _this.overTimeFn();
+              },1000);
+            }
+            
+            _this.setState({rendData:data.data.content,loading:false,residue_time:data.data.residue_time,ing:!ing,old:old,showExamModal:showExamModal});
             
         },'json')
     },
@@ -170,11 +194,10 @@ var AllWrapBox = React.createClass({
       var _this=this;
       return [  //设置弹窗的底部按钮
         {txt:"继续答题",onCli:function(closeFn){
-          console.log(_this.state.ing)
+      
             if(!_this.state.ing){
               $.post('/index.php?g=Yixue&m=Api&a=open',{t_id:getQueryString('id')},function(data){
-
-                _this.setState({showExamModal:false,ing:true})
+                _this.setState({showExamModal:false,ing:true,old:false})
                 _this.timer=setInterval(function(){
                   _this.overTimeFn();
                 },1000);
@@ -186,17 +209,25 @@ var AllWrapBox = React.createClass({
         }
         },
         {type:"warning",txt:"提交试卷",onCli:function(closeFn){
-  
-          $.post('/index.php?g=Yixue&m=Api&a=submitAnswer',{t_id:getQueryString('id') , answer: _this.getAllAswStr()},function(data){
-            alert(data.info);
-            if(data.code=="SUCCESS"){
-              closeFn();
-            }  
-          },'json')
+          _this.goSubAsw(function(){
+            closeFn();
+          })
+         
           
         }}
       ]
     }, 
+    goSubAsw:function(cb){
+      var _this=this;
+      $.post('/index.php?g=Yixue&m=Api&a=submitAnswer',{t_id:getQueryString('id'),answer:this.getAllAswStr()},function(data){
+            var text=_this.state.overTimeSub?"考试时间结束，":"";
+            alert(text+"已经为您提交试卷");
+            if(data.code=="SUCCESS"){
+              if(cb)cb();
+              location.href="/index.php?a=result&id="+getQueryString('id');
+            }  
+          },'json')
+    },
     openExamModal:function(){ //打开弹窗
       this.setState({showExamModal:true})
     },
@@ -287,6 +318,7 @@ var AllWrapBox = React.createClass({
                 </div>
                 <AlertModal title="答题状况" name="ExamModal" show={this.state.showExamModal} onClose={this.modalOnclose} btnOptions={this.ModalBtnConf()} >
                     <div  className="tl">
+                      <div className="contrary-color">{this.state.old?"您上次暂停的记录已保存，请继续答题":""}</div>
                       <div className="contrary-color">{this.state.ing?"":"您当前已经暂停"}</div>
                       共计<span className="contrary-color">{allNum}</span>题，
                       已经完成<span className="contrary-color">{completedNum}</span>题,
