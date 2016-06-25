@@ -38,7 +38,7 @@ var Tabs = React.createClass({
   render: function() {
       
       return (
-        <div className='tabWrap ub ub-ver ub-fv'>
+        <div className="tabWrap ub ub-ver ub-fv ub-f1">
           <div className="white-bg  tabHead">
             <div className={"ub tc fs14 "+this.props.btnBoxClass}>
               {this.props.children.map(function(obj,index){

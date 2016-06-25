@@ -31,8 +31,8 @@ var TabBox = React.createClass({
         var sta=pathname.indexOf('step');
         var stepNum=pathname.substring(sta+4,sta+5);
         return (
-            <div className="tabWrap ub ub-ver ub-fv" >
-                <div className="white-bg  tabHead">
+            <div className="tabWrap ub ub-ver ub-f1" >
+                <div  className="white-bg  tabHead " >
                   <div className="ub tc fs14 top-tab-box" >
                     
                     <Link className={pathname=="/TypeExam"||pathname=="/"?this.btnClass+'active':this.btnClass}  to="/TypeExam">
@@ -50,7 +50,7 @@ var TabBox = React.createClass({
                     </Link>
                   </div>
                 </div>
-                <div className="mt10 ub-f1 h10" >
+                <div className="mt10 ub-f1 ub ub-ver" >
                 {React.cloneElement(this.props.children || <div/>, { key: pathname })}
                 </div>
                  

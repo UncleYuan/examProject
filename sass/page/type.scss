@@ -1,4 +1,5 @@
 @import "../common/config";
+@import "../common/layout";
 html,body{
 	height:100%;
 }
@@ -9,18 +10,23 @@ html,body{
 	}
 }
 .page{
-	display:none;
+	display:none !important;
 	&.active{
-		display: block;
+		@extend .ub;
 	}
 }
 .typeUserBox{
 	.tabCont {
 		overflow-y: hidden;
+		@extend .ub;
 		.page{
-			height: 100%;
+			display:none !important;
+			&.active{
+				@extend .ub,.ub-ver,.ub-f1;
+			}
+			 
 			.pageIn{
-				height: 100%;
+				 @extend .ub,.ub-ver,.ub-f1;
 
 			}
 		}
@@ -28,5 +34,6 @@ html,body{
 }
 .scrollBox{
 	overflow-y:auto;
-	height:100%;
+	height:10px;
+	@extend .ub,.ub-ver,.ub-f1;
 }
