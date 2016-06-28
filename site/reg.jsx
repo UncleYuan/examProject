@@ -1,6 +1,6 @@
 var React = require('react');
 
-
+React.initializeTouchEvents(true);
 
 require('/lib/jquery');
 
@@ -95,15 +95,15 @@ var LoginForm = React.createClass({
 	                </div>
 	                <div className="ub ub-ver ">
 	                    <div className=" ub ub-pb fs12  ml10 mr10 mb15 mt5">
-	                    	<div onClick={this.goToLogin} className="contrary-color  " >
+	                    	<div onTouchEnd={this.goToLogin} className="contrary-color  " >
 	                            已有账户？立即登陆
 	                        </div>
-	                        <div onClick={this.goToGetPsw} className="desalt-color  " >
+	                        <div onTouchEnd={this.goToGetPsw} className="desalt-color  " >
 	                            忘记密码？
 	                        </div>
 	                    </div>
 	                    <div className="ml30 mr30">
-	                        <a className="btn ub ub-ac  fs16 ub-pc uc-a1 base-btn" onClick={this.goSub}>{this.state.goSubing||"注册"}</a>
+	                        <a className="btn ub ub-ac  fs16 ub-pc uc-a1 base-btn" onTouchEnd={this.goSub}>{this.state.goSubing||"注册"}</a>
 	                    </div>
 	                </div>
 	            </form>

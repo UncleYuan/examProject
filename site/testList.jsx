@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('/components/Loading');
 var ScrollList = require('/components/ScrollList');
 
@@ -38,7 +39,7 @@ var FormalList = React.createClass({
             <div>
                 <div id="header" className="base-bg pt05 headbar ub ub-ac  ub-pc pb05">
                     <div className="head-icon left" >
-                        <div className="iconfont icon-zuofan white-color fs21" onClick={this.goBack}></div>
+                        <div className="iconfont icon-zuofan white-color fs21" onTouchEnd={this.goBack}></div>
                     </div>
                     <div className="tc white-color">模拟考试</div>
                 </div>

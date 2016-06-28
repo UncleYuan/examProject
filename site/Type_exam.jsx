@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('/components/Loading');
 require('/lib/jquery');
 
@@ -47,7 +48,7 @@ var TypeExam = React.createClass({
                                 <div className="ubb1 fuzzy-border pt10 pb10  ub ub-ac">
                                     <div className="ub-f1 fs14">{obj.title}</div>
                                     <div className="">
-                                        <a href="javascript:;" onClick={this.goUrl.bind(this,obj.t_id)} className="btn assist-btn fs11">开始考试</a>
+                                        <a href="javascript:;" onTouchEnd={this.goUrl.bind(this,obj.t_id)} className="btn assist-btn fs11">开始考试</a>
                                     </div>
                                 </div>
                             );
@@ -69,7 +70,7 @@ var TypeExam = React.createClass({
                             <div className="ubb1 fuzzy-border pt10 pb10  ub ub-ac">
                                     <div className="ub-f1 fs14">{obj.title}</div>
                                     <div className="">
-                                        <a href="javascript:;" onClick={this.goUrl.bind(this,obj.t_id)} className="btn assist-btn fs11">开始考试</a>
+                                        <a href="javascript:;" onTouchEnd={this.goUrl.bind(this,obj.t_id)} className="btn assist-btn fs11">开始考试</a>
                                     </div>
                                 </div>
                              );

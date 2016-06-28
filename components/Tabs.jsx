@@ -44,7 +44,7 @@ var Tabs = React.createClass({
               {this.props.children.map(function(obj,index){
                 var activeClass=this.state.active==index?" active":""
                 return(
-                  <div onClick={this.selTab.bind(this,index)} className={"ub-f1 "+this.props.btnClass+" "+activeClass}>{obj.props.title}</div>
+                  <div onTouchEnd={this.selTab.bind(this,index)} className={"ub-f1 "+this.props.btnClass+" "+activeClass}>{obj.props.title}</div>
                 )
               },this)}
             </div>

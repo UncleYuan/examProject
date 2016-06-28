@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('components/Loading');
 var YouMi = require('site/ListYouMi');
 var ZhuanChang = require('site/ListZhuanChang');

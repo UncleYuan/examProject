@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('/components/Loading');
 require('/lib/jquery');
 
@@ -27,7 +28,7 @@ var TypeExam = React.createClass({
                 <div className="p10" >
                         {this.state.rendData.map(function(obj,idx){
                             return(
-                                <div className="btn base-btn mb10 block" onClick={this.goUrl.bind(this,obj.id)}>{obj.title}</div>
+                                <div className="btn base-btn mb10 block" onTouchEnd={this.goUrl.bind(this,obj.id)}>{obj.title}</div>
                             );
                         },this)}  
                 </div>

@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('/components/Loading');
 require('/lib/jquery');
 var Tabs = require('/components/Tabs');
@@ -33,7 +34,7 @@ var TypeUser = React.createClass({
         for(var i in arr){
             var typeClass=arr[i].state==0?"contrary":"base";
             html.push(
-                <div onClick={goUrl.bind(this,arr[i].t_id,arr[i].state)} className="ubb1 fuzzy-border ub ub-ae p10">
+                <div onTouchEnd={goUrl.bind(this,arr[i].t_id,arr[i].state)} className="ubb1 fuzzy-border ub ub-ae p10">
                     <div className="ub-f1">
                         <div className="fs13">
                             {arr[i].title}<span className={typeClass+"-color"}>({arr[i].state==0?"未完成":"已完成"})</span>

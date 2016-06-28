@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var PubSub=require('/lib/PubSubJS');
 window.PubSub=PubSub;
 var Modal = require('/components/Modal');
@@ -249,7 +250,7 @@ var AllWrapBox = React.createClass({
       for(var i in rendData){
         x++;
         var idxClass=rendData[i].value?"completed":"";
-        html.push(<li key={i} onClick={this.modalGoIdx.bind(this,x-1)} className={idxClass}>{x}</li>);
+        html.push(<li key={i} onTouchEnd={this.modalGoIdx.bind(this,x-1)} className={idxClass}>{x}</li>);
       }
       return html;
     },
@@ -299,7 +300,7 @@ var AllWrapBox = React.createClass({
         }
         var prevBtnShow=getJSONIdx(rendData,idx)<=0?"none":"block";
         var nextBtnShow=getJSONIdx(rendData,idx)>=JSONLength(rendData)-1?"none":"block";
-        var goSaveBtn=rendData[idx].t_type!="checkbox"||rendData[idx].checkbox_count!=0?<div onClick={this.goSetVal} className="base-btn btn block fs13 m30">保存此题答案</div>:"";
+        var goSaveBtn=rendData[idx].t_type!="checkbox"||rendData[idx].checkbox_count!=0?<div onTouchEnd={this.goSetVal} className="base-btn btn block fs13 m30">保存此题答案</div>:"";
         var completedNum=this.completedNum();
         var allNum=JSONLength(rendData);
         this.setAsw();
@@ -307,9 +308,9 @@ var AllWrapBox = React.createClass({
             <div className="ub ub-ver uinn-a3 ub-fv  ">
                 <div className="base-bg  pt05 headbar ub ub-ac  ub-pc pb05">
                   <div className="head-icon left">
-                    <div className="iconfont icon-zuofan white-color fs20" onClick={this.goIndex}></div>
+                    <div className="iconfont icon-zuofan white-color fs20" onTouchEnd={this.goIndex}></div>
                   </div>
-                  <div onClick={this.openExamModal} className="tc white-color">
+                  <div onTouchEnd={this.openExamModal} className="tc white-color">
                     试题一览({getJSONIdx(rendData,this.props.params.idx)+1}/{allNum})
                   </div>
                   <div className="head-icon right" >
@@ -338,16 +339,16 @@ var AllWrapBox = React.createClass({
                     </div>
                 </div>
                 <div className="ub ub-pb p10 tr">
-                          <span className="btn fs11" onClick={this.goPrevNext.bind(this,-1)} style={{"display":prevBtnShow}}>上一题</span>
+                          <span className="btn fs11" onTouchEnd={this.goPrevNext.bind(this,-1)} style={{"display":prevBtnShow}}>上一题</span>
                            {" "}
-                          <span className="btn fs11" onClick={this.goPrevNext.bind(this,1)} style={{"display":nextBtnShow}}>下一题</span>
+                          <span className="btn fs11" onTouchEnd={this.goPrevNext.bind(this,1)} style={{"display":nextBtnShow}}>下一题</span>
                         </div>
                 <div className="fixed-btn-group ub tc">
                   
-                    <div className="ub-f1 bottom-btn active-base" onClick={this.pause}>
+                    <div className="ub-f1 bottom-btn active-base" onTouchEnd={this.pause}>
                         暂停
                     </div>
-                    <div className="ub-f1 bottom-btn base-color" onClick={this.openExamModal}>
+                    <div className="ub-f1 bottom-btn base-color" onTouchEnd={this.openExamModal}>
                         交卷
                     </div>
                 </div>

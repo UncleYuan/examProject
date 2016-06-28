@@ -1,4 +1,5 @@
 var React = require('react');
+React.initializeTouchEvents(true);
 var Loading = require('/components/Loading');
 var ScrollList = require('/components/ScrollList');
 function getQueryString(name) { 
@@ -24,7 +25,7 @@ var FormalList = React.createClass({
         for(var i in arr){
             var typeClass=arr[i].state==0?"contrary":"base";
             html.push(
-              <div className="exam-item-box" onClick={this.goUrl.bind(this,arr[i].t_id)}>
+              <div className="exam-item-box" onTouchEnd={this.goUrl.bind(this,arr[i].t_id)}>
                 <div className="top-img fs20"><p className="p20">{arr[i].title}</p></div>
                 <div className="bottom-txt">开始考试</div>
               </div>
@@ -43,7 +44,7 @@ var FormalList = React.createClass({
             <div>
                 <div id="header" className="base-bg pt05 headbar ub ub-ac  ub-pc pb05">
                     <div className="head-icon left" >
-                        <div className="iconfont icon-zuofan white-color fs21" onClick={this.goBack}></div>
+                        <div className="iconfont icon-zuofan white-color fs21" onTouchEnd={this.goBack}></div>
                     </div>
                     <div className="tc white-color">题库</div>
                 </div>

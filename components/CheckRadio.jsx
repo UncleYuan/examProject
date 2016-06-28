@@ -22,6 +22,7 @@
 
 
 var React = require('react');
+React.initializeTouchEvents(true);
 indexOf = function(arr,val) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] == val) return i;
@@ -118,7 +119,7 @@ var CheckRadio = React.createClass({
           var fnName=type=="checkbox"?"chooseCheckBox":"chooseRadio";
           var selClass=indexOf(this.state.chooseArr,obj.value)>=0?"checked":"";
           return (
-            <li key={i} onClick={this[fnName].bind(this,i)} className={"problem-li ub ub-at "+selClass}>
+            <li key={i} onTouchEnd={this[fnName].bind(this,i)} className={"problem-li ub ub-at "+selClass}>
                 <i className={"option-idx "+addClass}>{obj.value}</i><p className="option-txt ub-f1">{obj.name}</p>
             </li>
             )
