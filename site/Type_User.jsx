@@ -22,13 +22,18 @@ var TypeUser = React.createClass({
     },
     getTelFn:function(arr,obj){
         var html=[];
-        var goUrl=function (id){
-            location.href="/index.php?a=exam&id="+id;
+        var goUrl=function (id,state){
+            if(state==0){
+               location.href="/index.php?a=exam&id="+id; 
+           }else{
+                location.href="/index.php?a=result&id="+id;
+           }
+            
         }
         for(var i in arr){
             var typeClass=arr[i].state==0?"contrary":"base";
             html.push(
-                <div onClick={goUrl.bind(this,arr[i].t_id)} className="ubb1 fuzzy-border ub ub-ae p10">
+                <div onClick={goUrl.bind(this,arr[i].t_id,arr[i].state)} className="ubb1 fuzzy-border ub ub-ae p10">
                     <div className="ub-f1">
                         <div className="fs13">
                             {arr[i].title}<span className={typeClass+"-color"}>({arr[i].state==0?"未完成":"已完成"})</span>
@@ -53,7 +58,7 @@ var TypeUser = React.createClass({
         return (
                 <div className="ub-f1 ub-ver ub typeUserBox" >
                   
-                <div className="white-bg p10 ub ub-ac user-top">
+                <div className="white-bg  p10 ub ub-ac user-top">
                     <img src="https://dn-baochoudai.qbox.me/upload/file/borrow/2016/06/5763b0b3769d4.jpg?imageView2/1/w/100/h/100" alt="" className="br_100 left-head" />
                     <div className="ub-f1 ml10">
                         <div className="top-name">
