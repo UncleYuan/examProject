@@ -8,7 +8,7 @@ var TypeExam = require('/site/Type_exam');
 var TypeExamAllList=require('/site/Type_ExamAllList');
 var TypeUser=require('/site/Type_User');
 
-var ReactRouter = require('lib/ReactRouter');
+var ReactRouter = require('ReactRouter');
 var Router=ReactRouter.Router;
 var Route=ReactRouter.Route;
 var Link=ReactRouter.Link;

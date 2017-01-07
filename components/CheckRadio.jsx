@@ -45,6 +45,7 @@ var CheckRadio = React.createClass({
         chooseArr:[],
         selLen:1000,
         name:"",
+        disabled:false,
         type:"checkbox",
       };
   },
@@ -119,7 +120,7 @@ var CheckRadio = React.createClass({
           var fnName=type=="checkbox"?"chooseCheckBox":"chooseRadio";
           var selClass=indexOf(this.state.chooseArr,obj.value)>=0?"checked":"";
           return (
-            <li key={i} onTouchEnd={this[fnName].bind(this,i)} className={"problem-li ub ub-at "+selClass}>
+            <li key={i} onTouchEnd={!this.props.disabled?this[fnName].bind(this,i):function(){}} className={"problem-li ub ub-at "+selClass}>
                 <i className={"option-idx "+addClass}>{obj.value}</i><p className="option-txt ub-f1">{obj.name}</p>
             </li>
             )
